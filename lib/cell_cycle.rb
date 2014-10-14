@@ -1,5 +1,5 @@
-require "cell_cycle/version"
+# encoding: utf-8
 
-module CellCycle
-  # Your code goes here...
-end
+# YSupport is a collection of methods used  in Y gems.
+# 
+require "cell_cycle/version"

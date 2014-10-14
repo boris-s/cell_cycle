@@ -1,0 +1,6 @@
+# encoding: utf-8
+
+set_step 1; set_sampling 300; set_target_time 3600 * 24
+new_simulation
+run!
+recording.plot
