@@ -67,3 +67,9 @@ Cdc20A_ϝ = Transition assignment: -> t { t < Cdc20Aω || t > Cdc20Aα ? 1 : 0 }
 
 # Include the A transitions in the CELL_CYCLE net.
 CELL_CYCLE << A_phase_ϝ << S_phase_ϝ << Cdc20A_ϝ
+
+def CELL_CYCLE.default_simulation
+  simulation time: 0..36.h.in( :s ),
+             step: 1.min.in( :s ),
+             sampling: 20.min.in( :s )
+end

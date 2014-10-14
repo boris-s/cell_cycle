@@ -12,7 +12,7 @@ class Float; def nan_to_zero; nan? ? 0.0 : self end end
 class Numeric; def to_f_nan_0; to_f.nan_to_zero end end
 
 # The following definitions are used to fine-step degradation.
-
+# 
 class FirstOrderDegradation < Proc
   def fine_step( step, n )
     fine = step.to_f / n
