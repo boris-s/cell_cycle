@@ -8,7 +8,7 @@
 
 require 'y_nelson' and include YNelson
 require 'sy'
-require './../cell_cycle'
+require 'cell_cycle'
 
 # Constants that control the cell cycle settings.
 S_phase_duration = 12.h
