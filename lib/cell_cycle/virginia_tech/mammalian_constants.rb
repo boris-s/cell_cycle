@@ -5,6 +5,7 @@
 # PUBLICATION ID: Csikasznagy2006agm
 # ==============================================================================
 
+
 require 'sy'; require 'y_nelson' and include YNelson
 
 # Golbeter-Koshland function used in Csikasznagy2006agm.
