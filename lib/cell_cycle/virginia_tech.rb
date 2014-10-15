@@ -42,7 +42,9 @@ CASE = 1; G2_MODULE = true
 # cell_cycle/virginia/mammalian_constants.rb
 # ==============================================================================
 
-require_relative 'virginia_tech/mammalian_constants'
+begin; require_relative 'virginia_tech/mammalian_constants'; rescue LoadError
+  require './virginia_tech/mammalian_constants'
+end
 
 # begin
 #   require_relative 'mammalian_constants'
