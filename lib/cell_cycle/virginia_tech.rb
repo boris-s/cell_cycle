@@ -48,7 +48,7 @@ rescue LoadError
   begin
     require './virginia_tech/mammalian_constants'
   rescue LoadError
-    require 'cell_cycle/virginia_tech/mammalian_constants'
+    require 'cell_cycle/virginia_tech/mammalian_constants.rb'
   end
 end
 
