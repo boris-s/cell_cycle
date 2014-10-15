@@ -444,7 +444,9 @@ set_step 5
 set_target_time 96.h.in( :s )
 set_sampling 300
 
-run!
+# I commented this out, I don't really want to run this lengthy simulation upon
+# requiring the gem.
+# run!
 
 # Note: Possible things to do with the recording, such as resampling, feature
 # extraction, saving to a file, reconstruction of a new simulation object at
