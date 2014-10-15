@@ -435,7 +435,16 @@ def CELL_CYCLE.default_simulation
   simulation time: 0..96.h.in( :s ),
              step: 5,
              sampling: 300
+  # FIXME: This method #default_simulation doesn't work, and I don't know why,
+  # while standard way of simulation works. I can just use the standard way
+  # of simulation by simply calling run! command, and fix this later.
 end
+
+set_step 5
+set_target_time 96.h.in( :s )
+set_sampling 300
+
+run!
 
 # Note: Possible things to do with the recording, such as resampling, feature
 # extraction, saving to a file, reconstruction of a new simulation object at
