@@ -43,12 +43,12 @@ CASE = 1; G2_MODULE = true
 # ==============================================================================
 
 begin
-  require_relative 'virginia_tech/mammalian_constants'
+  require_relative 'mammalian_constants'
 rescue LoadError
   begin
-    require './virginia_tech/mammalian_constants'
+    require './mammalian_constants'
   rescue LoadError
-    require 'cell_cycle/virginia_tech/mammalian_constants.rb'
+    require 'cell_cycle/mammalian_constants.rb'
   end
 end
 
