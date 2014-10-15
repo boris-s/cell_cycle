@@ -3,7 +3,7 @@
 # Generic cell cycle published in Csikasznagy2006agm. Mammalian constants used.
 # Initial state was obtained as described in Csikasznagy2006agm.
 
-require 'sy'; require 'y_nelson' and include YNelson
+require 'cell_cycle'
 
 # == TRICKS =====================================================================
 
@@ -419,52 +419,24 @@ finalize # YNelson command that finishes the net from the prescribed commands.
 # ==============================================================================
 
 
+CELL_CYCLE.merge! net   # This is quite fragile, since it assumes that no places
+                        # and/or transitions have been created before requiring
+                        # the cell cycle gem.
 
 
+# Net that defines cell growth, to be used eg. for testing or separate use.
+CELL_GROWTH_NET = Net()
+CELL_GROWTH_NET << Mass << Cell_growth << CycD <<
+  transition( :CycD_ϝ ) << CycB << ActCycB <<         # cyclin B
+  Ck_license << Cytokinesis << License_cocking        # cytokinesis
 
+# cell growth
+def CELL_CYCLE.default_simulation
+  simulation time: 0..96.h.in( :s ),
+             step: 5,
+             sampling: 300
+end
 
-
-
-
-
-
-
-
-
-
-
-
-
-=begin
-
-# === Whole CELL_CYCLE Nelson net ===
-
-CELL_CYCLE = Net() << A_phase << S_phase << Cdc20A
-
-# === Cell growh net ===
-
-CELL_GROWTH_NET = Net() <<
-  Mass << Cell_growth << CycD << transition( :CycD_ϝ ) << # cell growth
-  CycB << ActCycB <<                                      # cyclin B
-  Ck_license << Cytokinesis << License_cocking            # cytokinesis
-
-set_step 5                                               # simulation settings
-set_sampling 300
-set_target_time 3600 * 24 * 4
-
-new_simulation
-
-
-pm                            # prints marking of the newly created simulation
-simulation.step!              # peforms a single simulation step
-pm                            # prints marking again
-
-# simulation.run! upto: 3600    # we can run 1 hour of this simulation
-
-recording.plot                # and plot the recording
-
-# and do other things with the recording, such as resampling,
-# feature extraction, saving to a file, reconstruction of a new
-# simulation object at a given time etc.
-
-=end
+# Note: Possible things to do with the recording, such as resampling, feature
+# extraction, saving to a file, reconstruction of a new simulation object at
+# a given time etc.
