@@ -8,6 +8,7 @@
 
 require 'y_nelson' and include YNelson
 require 'sy'
+require './../cell_cycle'
 
 # Constants that control the cell cycle settings.
 S_phase_duration = 12.h
@@ -50,7 +51,7 @@ S_phase = Place m!: 0
 Cdc20A = Place m!: 1
 
 # Include them in the CELL_CYCLE net.
-CELL_CYCLE = Net() << Timer << Clock << A_phase << S_phase << Cdc20A
+CELL_CYCLE = << Timer << Clock << A_phase << S_phase << Cdc20A
 
 # Assignment transitions that control the state of the places A_phase, S_phase
 # and Cdc20A.
