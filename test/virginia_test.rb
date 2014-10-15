@@ -1,42 +1,17 @@
 #! /usr/bin/ruby
 # encoding: utf-8
 
+
 require 'minitest/autorun'
 require 'sy'
 require 'y_nelson' and include YNelson
 
-bp = './../../lib/'
-  .tap { |s| s.singleton_class.class_exec do attr_accessor :loaded end }
-  .tap { |s| s.loaded = {} }
-
-require_once = -> path do
-  bp.loaded[ path ] or
-    require( bp + path ) && bp.loaded.update( path => true )
-end
-
-describe :mammalian_cell_cycle do
+describe "virginia tech cell cycle" do
   before do
-    require_once.( 'ttp_pathway/version' )
-    require_once.( 'michaelis_menten' )
-    require_once.( 'general_assumptions' )
-    require_once.( 'cell_cycle/virginia' )
+    require './../lib/cell_cycle/virginia_tech'
   end
 
-  describe "sanity of this test itself" do
-    it "should have version loaded" do
-      TtpPathway::VERSION.must_be_kind_of String
-    end
-
-    it "should have michaelis_menten loaded" do
-      [ Vmax, Km_reduced, Occupancy, MMi ].all? &[ :kind_of?, Proc ]
-    end
-
-    it "should have general_assumptions loaded" do
-      assert defined? Cell_diameter
-      assert defined? Cytoplasm_volume
-      assert defined? Pieces_per_µM
-    end
-  end
+  # TODO: This is how far I came.
 
   describe "basic elements" do
     it "should have basic interface places" do

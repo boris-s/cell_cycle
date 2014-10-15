@@ -4,21 +4,32 @@ Cell cycle model.
 
 ## Installation
 
-Add this line to your application's Gemfile:
-
-    gem 'cell_cycle'
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
+You can install it by
 
     $ gem install cell_cycle
 
 ## Usage
 
-TODO: Write usage instructions here
+This gem contains two versions of cell cycle. Both of them contain an engine,
+a Petri net whose execution results in cycling, and 3 output places: A_phase,
+S_phase and Cdc20A.
+
+Simple version of the cell cycle is called by:
+
+    require 'cell_cycle/simple'
+
+You can then try
+
+    s = CELL_CYCLE.default_simulation
+    s.run!
+    s.recording.print
+    s.recording.plot except: [ Timer ]        # relies on Gnuplot
+
+And a more complex one, developed at Virginia Institute of Technology, and called by:
+
+    require 'cell_cycle/virginia_tech'
+
+This one
 
 ## Contributing
 
