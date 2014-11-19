@@ -29,7 +29,12 @@ And a more complex one, developed at Virginia Institute of Technology, and calle
 
     require 'cell_cycle/virginia_tech'
 
-This one
+You can then try
+
+    run!
+
+The current version of the Virginia Tech cell cycle takes a long time to execute, but
+once the waiting is over, you can display the results
 
 ## Contributing
 
