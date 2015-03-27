@@ -22,7 +22,7 @@ describe :simple_cell_cycle do
     A_phase_end.must_equal 17.h
     Cdc20A_start.must_equal 22.h
     Cdc20A_end.must_equal 1.h
-    CELL_CYCLE.A_tt.names.must_equal [ :A_phase_ϝ, :S_phase_ϝ, :Cdc20A_ϝ ]
+    CELL_CYCLE.A_tt.names.must_equal [ :A_phase_f, :S_phase_f, :Cdc20A_f ]
     # the simulation should look good
     sim = CELL_CYCLE.simulation time: 0..36.h.in( :s ),
                                 step: 1.min.in( :s ),
