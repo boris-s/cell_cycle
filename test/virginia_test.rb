@@ -70,6 +70,10 @@ describe "virginia tech cell cycle" do
             @feature = @net.State.Feature.Assignment( CycD )
           end
 
+          it "is weird to construct timeless simulations for arguably timed cell cycle net" do
+            flunk unless @sim.timed?
+          end
+
           it "must assign to CycD a value proportional to the cell mass" do
             v1 = @feature.extract_from( @sim )
             # construct a second simulation with double mass:

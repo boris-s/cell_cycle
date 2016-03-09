@@ -30,12 +30,12 @@ Cdc20A_end = 20.min
 =end
 
 # Figure them out as numbers in seconds.
-Sα = S_phase_start.in :s
-Sω = S_phase_end.in :s
-Aα = A_phase_start.in :s
-Aω = A_phase_end.in :s
-Cdc20Aα = Cdc20A_start.in :s
-Cdc20Aω = Cdc20A_end.in :s
+S_s = S_phase_start.in :s
+S_e = S_phase_end.in :s
+A_s = A_phase_start.in :s
+A_e = A_phase_end.in :s
+Cdc20A_s = Cdc20A_start.in :s
+Cdc20A_e = Cdc20A_end.in :s
 
 # Timer place
 Timer = Place m!: 0
@@ -54,18 +54,18 @@ CELL_CYCLE << Timer << Clock << A_phase << S_phase << Cdc20A
 # Assignment transitions that control the state of the places A_phase, S_phase
 # and Cdc20A.
 # 
-A_phase_ϝ = Transition assignment: -> t { t > Aα && t < Aω ? 1 : 0 },
+A_phase_f = Transition assignment: -> t { t > A_s && t < A_e ? 1 : 0 },
                        domain: Timer,
                        codomain: A_phase
-S_phase_ϝ = Transition assignment: -> t { t > Sα && t < Sω ? 1 : 0 },
+S_phase_f = Transition assignment: -> t { t > S_s && t < S_e ? 1 : 0 },
                        domain: Timer,
                        codomain: S_phase
-Cdc20A_ϝ = Transition assignment: -> t { t < Cdc20Aω || t > Cdc20Aα ? 1 : 0 },
+Cdc20A_f = Transition assignment: -> t { t < Cdc20A_e || t > Cdc20A_s ? 1 : 0 },
                       domain: Timer,
                       codomain: Cdc20A
 
 # Include the A transitions in the CELL_CYCLE net.
-CELL_CYCLE << A_phase_ϝ << S_phase_ϝ << Cdc20A_ϝ
+CELL_CYCLE << A_phase_f << S_phase_f << Cdc20A_f
 
 def CELL_CYCLE.default_simulation
   simulation time: 0..36.h.in( :s ),
