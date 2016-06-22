@@ -11,7 +11,7 @@ describe "virginia tech cell cycle" do
     require './../lib/cell_cycle/virginia_tech'
   end
 
-  # TODO: This is how far I came.
+  # TODO: There are unwritten tests for some cell cycle modules.
 
   describe "basic elements" do
     it "should have basic interface places" do
@@ -68,10 +68,6 @@ describe "virginia tech cell cycle" do
             @net = Net() << Mass << CycD << transition( :CycD_ϝ )
             @sim = @net.simulation initial_marking: { Mass: 1.0 }
             @feature = @net.State.Feature.Assignment( CycD )
-          end
-
-          it "is weird to construct timeless simulations for arguably timed cell cycle net" do
-            flunk unless @sim.timed?
           end
 
           it "must assign to CycD a value proportional to the cell mass" do

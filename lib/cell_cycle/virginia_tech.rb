@@ -3,7 +3,7 @@
 # Generic cell cycle published in Csikasznagy2006agm. Mammalian constants used.
 # Initial state was obtained as described in Csikasznagy2006agm.
 
-require 'cell_cycle'
+require_relative '../cell_cycle'
 
 # == TRICKS =====================================================================
 

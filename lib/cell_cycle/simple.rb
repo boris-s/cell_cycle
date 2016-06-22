@@ -6,7 +6,7 @@
 # phase. Cdc20A represents the APC (Anaphase Promoting Complex). When present,
 # it degrades the cell cycle enzyme machinery.
 
-require 'cell_cycle'
+require_relative '../cell_cycle'
 
 # Constants that control the cell cycle settings.
 S_phase_duration = 12.h
