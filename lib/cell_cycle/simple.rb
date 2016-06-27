@@ -9,6 +9,7 @@
 require_relative '../cell_cycle'
 
 # Constants that control the cell cycle settings.
+Cell_cycle_duration = 24.h
 S_phase_duration = 12.h
 S_phase_start = 5.h
 S_phase_end = S_phase_start + S_phase_duration
@@ -30,10 +31,11 @@ Cdc20A_end = 20.min
 =end
 
 # Figure them out as numbers in seconds.
-S_s = S_phase_start.in :s
-S_e = S_phase_end.in :s
-A_s = A_phase_start.in :s
-A_e = A_phase_end.in :s
+Cc_duration_s = Cell_cycle_duration.in :s
+S_start_s = S_phase_start.in :s
+S_end_s = S_phase_end.in :s
+A_start_s = A_phase_start.in :s
+A_end_s = A_phase_end.in :s
 Cdc20A_s = Cdc20A_start.in :s
 Cdc20A_e = Cdc20A_end.in :s
 
@@ -54,21 +56,40 @@ CELL_CYCLE << Timer << Clock << A_phase << S_phase << Cdc20A
 # Assignment transitions that control the state of the places A_phase, S_phase
 # and Cdc20A.
 # 
-A_phase_f = Transition assignment: -> t { t > A_s && t < A_e ? 1 : 0 },
-                       domain: Timer,
-                       codomain: A_phase
-S_phase_f = Transition assignment: -> t { t > S_s && t < S_e ? 1 : 0 },
-                       domain: Timer,
-                       codomain: S_phase
-Cdc20A_f = Transition assignment: -> t { t < Cdc20A_e || t > Cdc20A_s ? 1 : 0 },
-                      domain: Timer,
-                      codomain: Cdc20A
+A_phase_f = Transition domain: Timer, codomain: A_phase,
+                       assignment: -> timer {
+                         cc_progress = timer % Cc_duration_s
+                         if cc_progress > A_start_s and cc_progress < A_end_s
+                           1
+                         else
+                           0
+                         end
+                       }
+
+S_phase_f = Transition domain: Timer, codomain: A_phase,
+                       assignment: -> timer {
+                         cc_progress = timer % Cc_duration_s
+                         if cc_progress > S_start_s and cc_progress < S_end_s
+                           1
+                         else
+                           0
+                         end
+                       }
+Cdc20A_f = Transition domain: Timer, codomain: Cdc20A,
+                      assignment: -> timer {
+                        cc_progress = timer % Cc_duration_s
+                        if cc_progress < Cdc20A_e or cc_progress > Cdc20A_s
+                          1
+                        else
+                          0
+                        end
+                      }
 
 # Include the A transitions in the CELL_CYCLE net.
 CELL_CYCLE << A_phase_f << S_phase_f << Cdc20A_f
 
 def CELL_CYCLE.default_simulation
-  simulation time: 0..36.h.in( :s ),
+  simulation time: 0..48.h.in( :s ),
              step: 1.min.in( :s ),
              sampling: 20.min.in( :s )
 end
